@@ -1,0 +1,51 @@
+language: rust
+sudo: requred
+dist: trusty
+addons:
+  apt:
+    packages:
+      - php5-curl
+      - make
+      - libssl-dev
+      - g++
+cache: cargo
+rust:
+  - stable
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
+os:
+  - linux
+
+env:
+  # Ensure that we build without warnings.
+  - CARGO_FLAGS="--features 'strict'"
+  - RUSTFLAGS="-C target-feature=-crt-static"
+
+before_cache: |
+  curl https://www.openssl.org/source/openssl-1.0.2l.tar.gz | tar xz && cd openssl-1.0.2l && ./config && make && make install
+  ln -sf /usr/local/ssl/bin/openssl `which openssl`
+  if [[ "$TRAVIS_RUST_VERSION" == stable ]]; then
+    cargo install cargo-tarpaulin -f
+  fi
+
+script:
+  - cargo clean
+  - cargo build
+  - cargo test --manifest-path=Cargo.toml
+  - cargo test --release --manifest-path=Cargo.toml
+
+after_success: |
+  if [[ "$TRAVIS_RUST_VERSION" == stable ]]; then
+    # Uncomment the following line for coveralls.io
+    cargo tarpaulin --ciserver travis-ci --coveralls $TRAVIS_JOB_ID
+
+    # Uncomment the following two lines create and upload a report for codecov.io
+    # cargo tarpaulin --out Xml
+    # bash <(curl -s https://codecov.io/bash)
+  fi
+
+notifications:
+  fast_finish: true
+  email: false

@@ -1,0 +1,4 @@
+/enigmaservice
+/target
+**/*.rs.bk
+Cargo.lock

@@ -1,0 +1,5 @@
+{
+  "email": {
+    "$ne": "johny.bravo@cn.com"
+  }
+}
