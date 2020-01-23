@@ -1,0 +1,24 @@
+{
+    "version": "1.0.0",
+    "ciphers": {
+        "email": {
+            "configurations": {
+                "1.0": {
+                    "algorithm": "aes_cbc",
+                    "secret": "zj4aY4M8BQCfIxllyg6pTw=="
+                }
+            }
+        }
+    },
+    "hashers": {
+        "email": {
+            "configurations": {
+                "1.0": {
+                    "algorithm": "bcrypt",
+                    "rounds": 5,
+                    "salt": "zj4aY4M8BQCfIxllyg6pTw=="
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "email": {
+    "$in": [
+      "johny.bravo@cn.com",
+      "johny.bravo@cn2.com"
+    ]
+  }
+}

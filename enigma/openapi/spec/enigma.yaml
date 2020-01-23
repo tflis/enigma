@@ -1,0 +1,118 @@
+openapi: 3.0.1
+info:
+  title: Enigma Service
+  description: The main goal of this service is decrypt/encrypt/hash sensitive data of users basen on given configuration. This is useful when we want to store encrypted data in database. As an input the service gets json document and encrypt/decrypt/hash particular fields that was specified in config file.
+  contact:
+    email: tflis84@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+tags:
+- name: encrypt
+  description: Everything about encrypting/hashing data
+- name: decrypt
+  description: Everything about decrypting data
+- name: query
+  description: Everything about changing DB query in regards to hashing configuration
+paths:
+  /encrypt:
+    post:
+      tags:
+      - encrypt
+      summary: Encrypt/hash all fields from given JSON document which are specified in config file to be encrypted/hashed
+      operationId: encrypt
+      requestBody:
+        description: JSON document that has to be encrypted
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        200:
+          description: Encryption finished successfully. Encrypted document was provided in content.
+          content:
+            text/plain:
+              schema:
+                type: string
+        503:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /decrypt:
+    post:
+      tags:
+      - decrypt
+      summary: Decrypt all fields from given JSON document which are specified in config file to be decrypted
+      operationId: decrypt
+      requestBody:
+        description: JSON document that has to be decrypted
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        200:
+          description: Decryption finished successfully. Decrypted document was provided in content.
+          content:
+            text/plain:
+              schema:
+                type: string
+        403:
+          description: One or more fields are incorrect. Enigma service wasn't able to decrypt it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        503:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /query:
+    post:
+      tags:
+      - query
+      summary: If the mongoDB query contains encrypted fields then those elements would be repalced in a way that query would be cappable to fetch specific elements
+      operationId: query
+      requestBody:
+        description: JSON document that has to be decrypted
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        200:
+          description: Decryption finished successfully. Decrypted document was provided in content.
+          content:
+            text/plain:
+              schema:
+                type: string
+        403:
+          description: One or more fields are incorrect. Enigma service wasn't able to decrypt it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        503:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string

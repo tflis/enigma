@@ -1,0 +1,33 @@
+{
+    "version": "1.0.0",
+    "ciphers": {
+        "email": {
+            "configurations": {
+                "1.0": {
+                    "algorithm": "aes_cbc",
+                    "secret": "zj4aY4M8BQCfIxllyg6pTw=="
+                },
+                "1.1": {
+                    "algorithm": "aes_cfb1",
+                    "secret": "zj4aY4M8BQCfIxllyg6pTw=="
+                }
+            }
+        }
+    },
+    "hashers": {
+        "email": {
+            "configurations": {
+                "1.0": {
+                    "algorithm": "bcrypt",
+                    "rounds": 5,
+                    "salt": "zj4aY4M8BQCfIxllyg6pTw=="
+                },
+                "2.0": {
+                    "algorithm": "pbkdf2",
+                    "rounds": 10,
+                    "salt": "zj4aY4M8BQCfIxllyg6pTw=="
+                }
+            }
+        }
+    }
+}
