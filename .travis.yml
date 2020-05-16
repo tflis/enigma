@@ -22,19 +22,8 @@ os:
 env:
   - RUSTFLAGS="-C target-feature=-crt-static"
 
-before_script: |
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.2/install.sh | bash -s -- --no-use
-  echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
-  echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-  source ~/.profile
-  nvm --version
-  curl https://www.openssl.org/source/openssl-1.0.2l.tar.gz | tar xz && cd openssl-1.0.2l && ./config && make && sudo make install
-  sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-  wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/4.2.2/openapi-generator-cli-4.2.2.jar -O openapi-generator-cli.jar
-  mkdir -p ~/bin/openapitools
-  curl https://raw.githubusercontent.com/OpenAPITools/openapi-generator/master/bin/utils/openapi-generator-cli.sh > ~/bin/openapitools/openapi-generator-cli
-  chmod u+x ~/bin/openapitools/openapi-generator-cli
-  export PATH=$PATH:~/bin/openapitools/
+services:
+  - docker
 
 before_cache: |
   if [[ "$TRAVIS_RUST_VERSION" == stable ]]; then
@@ -42,7 +31,7 @@ before_cache: |
   fi
 
 script:
-  - ~/bin/openapitools/openapi-generator-cli generate -i enigma/openapi/spec/enigma.yaml -g rust-server -o enigmaservice/ --package-name enigmaservice
+  - make prepare
   - cargo clean
   - cargo build
   - cargo test --manifest-path=Cargo.toml
