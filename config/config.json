@@ -1,33 +1,50 @@
 {
-    "version": "1.0.0",
-    "ciphers": {
-        "email": {
-            "configurations": {
-                "1.0": {
-                    "algorithm": "aes_cbc",
-                    "secret": "zj4aY4M8BQCfIxllyg6pTw=="
-                },
-                "1.1": {
-                    "algorithm": "aes_cfb1",
-                    "secret": "zj4aY4M8BQCfIxllyg6pTw=="
-                }
-            }
+  "version": "1.0.0",
+  
+  "ciphers": {
+    "age": {
+      "configurations": {
+        "1.0": {
+          "algorithm": "aes_cbc",
+          "secret": "ScqGwY3HCqks67AweufBJxj9MguYZ+WLD03X0dZ0VIY="
         }
+      }
     },
-    "hashers": {
-        "email": {
-            "configurations": {
-                "1.0": {
-                    "algorithm": "bcrypt",
-                    "rounds": 5,
-                    "salt": "zj4aY4M8BQCfIxllyg6pTw=="
-                },
-                "2.0": {
-                    "algorithm": "pbkdf2",
-                    "rounds": 10,
-                    "salt": "zj4aY4M8BQCfIxllyg6pTw=="
-                }
-            }
+    "surname": {
+      "configurations": {
+        "1.0": {
+          "algorithm": "aes_cfb1",
+          "secret": "cEBWepxGedyeA83KHyG8/imamc2n3OIEV9ns4GfikgQ="
         }
+      }
+    },
+    "address.*": {
+      "configurations": {
+        "1.0": {
+          "algorithm": "aes_ecb",
+          "secret": "K+hrfO5jdZW7pslTz5hjE57u7azX4MnKudeh/ZWV37U="
+        }
+      }
+    },
+    "email": {
+      "configurations": {
+        "1.0": {
+          "algorithm": "aes_cbc",
+          "secret": "1VWxoa1iy9xv0RmuIld0TGKguXRAfwX8SUxbmBkXp00="
+        }
+      }
     }
+  },
+
+  "hashers": {
+    "email": {
+      "configurations": {
+        "1.0": {
+          "algorithm": "bcrypt",
+          "rounds": 10,
+          "salt": "P6ssIvbK7lS1VM+p/uhBgq7UrXTJmYnXlNPCB/ESDSg="
+        }
+      }
+    }
+  }
 }
