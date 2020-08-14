@@ -13,6 +13,10 @@ prepare:
 swagger:
 	docker run --rm -v `pwd`:/local openapi
 
+swagger_travis:
+	docker run --name openapi openapi
+	docker cp openapi:/local/enigmaservice ./
+
 build:
 	cargo run -p enigma
 
