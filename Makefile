@@ -11,11 +11,8 @@ prepare:
 	docker build -t openapi --build-arg USER=${USER} -f ./Dockerfile_openapi .
 
 swagger:
-	docker run --rm -v `pwd`:/local openapi
-
-swagger_travis:
 	docker run --name openapi openapi
-	docker cp openapi:/local/enigmaservice ./
+	docker cp openapi:/home/${USER} ./enigmaservice
 
 build:
 	cargo run -p enigma
