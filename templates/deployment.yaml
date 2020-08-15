@@ -40,6 +40,14 @@ spec:
               port: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+          - name: config
+            mountPath: "/config"
+            readOnly: true
+      volumes:
+      - name: config
+        secret:
+        secretName: enigma-secret
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
