@@ -1,9 +1,9 @@
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: enigma
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Never
 
 service:
   type: LoadBalancer
