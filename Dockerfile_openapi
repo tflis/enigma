@@ -1,12 +1,13 @@
 FROM openapitools/openapi-generator-cli
 
 ARG USER
+ARG HOME=/home/$USER
 
-RUN adduser -u 1000 -G users -h /home/$USER -s /bin/sh -D $USER
+RUN adduser -u 1000 -G users -h $HOME -s /bin/sh -D $USER
 USER $USER
 
-WORKDIR /local
+WORKDIR $HOME
 
 COPY enigma/openapi/spec/enigma.yaml /
 
-CMD ["generate", "-i", "/enigma.yaml", "-g", "rust-server", "-o", "/local/enigmaservice/", "--package-name", "enigmaservice"]
+CMD ["generate", "-i", "/enigma.yaml", "-g", "rust-server", "--package-name", "enigmaservice"]
