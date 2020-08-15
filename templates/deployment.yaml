@@ -47,7 +47,7 @@ spec:
       volumes:
       - name: config
         secret:
-        secretName: enigma-secret
+          secretName: enigma-secret
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
