@@ -7,6 +7,7 @@ clean:
 	-@rm -rf ./enigmaservice 2> /dev/null ||:
 
 prepare:
+	-@docker rm openapi
 	-@docker rmi `docker images -f "dangling=true" -q` 2> /dev/null ||:
 	docker build -t openapi --build-arg USER=${USER} -f ./Dockerfile_openapi .
 
@@ -15,7 +16,7 @@ swagger:
 	docker cp openapi:/home/${USER} ./enigmaservice
 
 build:
-	cargo run -p enigma
+	RUST_LOG=info cargo run -p enigma
 
 docker_build:
 	docker build -t enigma .
